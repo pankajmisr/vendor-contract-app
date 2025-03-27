@@ -4,6 +4,12 @@ function SummaryReport({ vendor, selectedContracts }) {
   // Calculate total contract value
   const totalValue = selectedContracts.reduce((sum, contract) => sum + contract.value, 0);
   
+  // Calculate total rebate value
+  const totalRebateValue = selectedContracts.reduce(
+    (sum, contract) => sum + (contract.value * contract.rebate / 100), 
+    0
+  );
+  
   // Check if any contracts are selected
   if (!vendor || selectedContracts.length === 0) {
     return (
@@ -21,6 +27,7 @@ function SummaryReport({ vendor, selectedContracts }) {
         <p><strong>Vendor:</strong> {vendor.name}</p>
         <p><strong>Selected Contracts:</strong> {selectedContracts.length}</p>
         <p><strong>Total Value:</strong> ${totalValue.toLocaleString()}</p>
+        <p><strong>Total Rebate:</strong> ${totalRebateValue.toLocaleString()}</p>
       </div>
       
       <table className="table table-striped report-table">
@@ -29,31 +36,43 @@ function SummaryReport({ vendor, selectedContracts }) {
             <th>Contract ID</th>
             <th>Contract Name</th>
             <th>Value</th>
+            <th>Rebate (%)</th>
+            <th>Rebate Value</th>
             <th>Start Date</th>
             <th>End Date</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
-          {selectedContracts.map(contract => (
-            <tr key={contract.id}>
-              <td>{contract.id}</td>
-              <td>{contract.name}</td>
-              <td>${contract.value.toLocaleString()}</td>
-              <td>{contract.startDate}</td>
-              <td>{contract.endDate}</td>
-              <td>
-                <span className={`status-badge ${contract.status.toLowerCase()}`}>
-                  {contract.status}
-                </span>
-              </td>
-            </tr>
-          ))}
+          {selectedContracts.map(contract => {
+            // Calculate rebate value for this contract
+            const rebateValue = contract.value * contract.rebate / 100;
+            
+            return (
+              <tr key={contract.id}>
+                <td>{contract.id}</td>
+                <td>{contract.name}</td>
+                <td>${contract.value.toLocaleString()}</td>
+                <td>{contract.rebate}%</td>
+                <td>${rebateValue.toLocaleString()}</td>
+                <td>{contract.startDate}</td>
+                <td>{contract.endDate}</td>
+                <td>
+                  <span className={`status-badge ${contract.status.toLowerCase()}`}>
+                    {contract.status}
+                  </span>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
         <tfoot>
           <tr>
             <td colSpan="2"><strong>Total</strong></td>
-            <td colSpan="4"><strong>${totalValue.toLocaleString()}</strong></td>
+            <td><strong>${totalValue.toLocaleString()}</strong></td>
+            <td></td>
+            <td><strong>${totalRebateValue.toLocaleString()}</strong></td>
+            <td colSpan="3"></td>
           </tr>
         </tfoot>
       </table>
