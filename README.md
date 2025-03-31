@@ -1,3 +1,5 @@
+# Hello beautiful users
+
 # Vendor Contract Application
 
 A React application for vendor and contract selection with summary reports. This application allows users to select vendors from a dropdown, view and select associated contracts, and view a summary report of the selected contracts in a table format.
