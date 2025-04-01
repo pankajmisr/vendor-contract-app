@@ -24,6 +24,7 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1>Vendor Contract Management</h1>
+        <h2>Hello world</h2>
       </header>
       
       <main className="app-main">
