@@ -1,3 +1,4 @@
+```javascript
 import React from 'react';
 
 function SummaryReport({ vendor, selectedContracts }) {
@@ -32,6 +33,7 @@ function SummaryReport({ vendor, selectedContracts }) {
             <th>Start Date</th>
             <th>End Date</th>
             <th>Status</th>
+            <th>Column</th>
           </tr>
         </thead>
         <tbody>
@@ -47,13 +49,14 @@ function SummaryReport({ vendor, selectedContracts }) {
                   {contract.status}
                 </span>
               </td>
+              <td></td>
             </tr>
           ))}
         </tbody>
         <tfoot>
           <tr>
             <td colSpan="2"><strong>Total</strong></td>
-            <td colSpan="4"><strong>${totalValue.toLocaleString()}</strong></td>
+            <td colSpan="5"><strong>${totalValue.toLocaleString()}</strong></td>
           </tr>
         </tfoot>
       </table>
@@ -62,3 +65,4 @@ function SummaryReport({ vendor, selectedContracts }) {
 }
 
 export default SummaryReport;
+```
